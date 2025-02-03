@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Treasure Hunt - Room 2: Wiki Maze</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1e1e1e;
+      overflow: hidden;
+    }
+
+    .room {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      background-color: #333;
+      border: 5px solid #555;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    /* Video background styling */
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Object styling */
+    .object {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .object:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    #keyboard {
+      top: 50px;
+      left: 50px;
+      width: 80px;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    #codeeditor {
+      top: 100px;
+      left: 300px;
+      width: 100px;
+      animation: spin 5s infinite linear;
+    }
+
+    #coffemug {
+      bottom: 100px;
+      left: 500px;
+      width: 90px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #newspaper {
+      top: 200px;
+      right: 50px;
+      width: 90px;
+      animation: float 3.5s infinite ease-in-out;
+    }
+
+    #picture-frame {
+      top: 350px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      animation: glow 2s infinite alternate ease-in-out;
+    }
+
+    #fan {
+      top: 250px;
+      left: 600px;
+      width: 80px;
+      animation: rotate 4s infinite linear;
+    }
+
+    #trashcan {
+      bottom: 50px;
+      left: 300px;
+      width: 60px;
+      animation: float 2.5s infinite ease-in-out;
+    }
+
+    #postitnotes {
+      top: 150px;
+      left: 50px;
+      width: 70px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #paperclips {
+      top: 250px;
+      left: 800px;
+      width: 50px;
+      animation: float 2.5s infinite ease-in-out;
+    }
+
+    #laptopbag {
+      top: 100px;
+      left: 700px;
+      width: 120px;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    #notepad {
+      bottom: 150px;
+      right: 150px;
+      width: 80px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #cupoftea {
+      top: 300px;
+      left: 200px;
+      width: 70px;
+      animation: float 2.5s infinite ease-in-out;
+    }
+
+    #whiteboard {
+      top: 100px;
+      right: 50px;
+      width: 150px;
+      animation: float 3.5s infinite ease-in-out;
+    }
+
+    #stickynotes {
+      top: 400px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Keyframes for animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+      }
+      100% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+      }
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="room">
+        <video class="video-background" autoplay loop muted>
+            <source src="./img/room6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Objects in the room -->
+        <img id="keyboard" class="object" src="./img/globe.jpeg" alt="Keyboard" onclick="handleClick('keyboard')">
+        <img id="codeeditor" class="object" src="./img/map.jpeg" alt="Code Editor" onclick="handleClick('codeeditor')">
+        <img id="coffemug" class="object" src="./img/compass.jpeg" alt="Coffee Mug" onclick="handleClick('coffemug')">
+        <img id="newspaper" class="object" src="./img/newspaper.jpeg" alt="Newspaper" onclick="handleClick('newspaper')">
+        <img id="picture-frame" class="object" src="./img/picture-frame.jpeg" alt="Picture Frame" onclick="handleClick('picture-frame')">
+        <img id="fan" class="object" src="./img/fan.png" alt="Fan" onclick="handleClick('fan')">
+        <img id="trashcan" class="object" src="./img/trash.jpeg" alt="Trash Can" onclick="handleClick('trashcan')">
+        <img id="postitnotes" class="object" src="./img/postnotes.jpeg" alt="Post-it Notes" onclick="handleClick('postitnotes')">
+        <img id="paperclips" class="object" src="./img/paperclips.jpeg" alt="Paper Clips" onclick="handleClick('paperclips')">
+        <img id="laptopbag" class="object" src="./img/laptopbags.jpeg" alt="Laptop Bag" onclick="handleClick('laptopbag')">
+        <img id="notepad" class="object" src="./img/notepad.jpeg" alt="Notepad" onclick="handleClick('notepad')">
+        <img id="cupoftea" class="object" src="./img/coffemug.png" alt="Cup of Tea" onclick="handleClick('cupoftea')">
+        <img id="whiteboard" class="object" src="./img/chalkboard.png" alt="Whiteboard" onclick="handleClick('whiteboard')">
+        <img id="stickynotes" class="object" src="./img/stickynotes.png" alt="Sticky Notes" onclick="handleClick('stickynotes')">
+
+        <!-- Message for correct/incorrect selection -->
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function handleClick(object) {
+            const message = document.getElementById('message');
+            if (object === 'keyboard') {
+                message.textContent = 'Correct! Redirecting to the next challenge...';
+                message.style.color = '#00ff00';
+                message.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'next-challenge.html'; // Redirect to next challenge
+                }, 2000);
+            } else {
+                message.textContent = 'Oops! Wrong choice. -3 points. Try again!';
+                message.style.color = '#ff0000';
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Treasure Hunt - Room 2: Wiki Maze</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1e1e1e;
+      overflow: hidden;
+    }
+
+    .room {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      background-color: #333;
+      border: 5px solid #555;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    /* Video background styling */
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* z-index: -1; */
+    }
+
+    /* Object styling */
+    .object {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .object:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    #globe {
+      top: 50px;
+      left: 50px;
+      width: 80px;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    #map {
+      top: 100px;
+      left: 300px;
+      width: 100px;
+      animation: spin 5s infinite linear;
+    }
+
+    #compass {
+      bottom: 100px;
+      left: 500px;
+      width: 90px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #newspaper {
+      top: 200px;
+      right: 50px;
+      width: 90px;
+      animation: float 3.5s infinite ease-in-out;
+    }
+
+    #picture-frame {
+      top: 350px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      animation: glow 2s infinite alternate ease-in-out;
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Keyframes for animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+      }
+      100% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="room">
+        <video class="video-background" autoplay loop muted>
+            <source src="./img/room2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+      
+
+    <!-- Objects in the room -->
+    <img id="globe" class="object" src="./img/globe.jpeg" alt="Globe" onclick="handleClick('globe')">
+    <img id="map" class="object" src="./img/map.jpeg" alt="Map" onclick="handleClick('map')">
+    <img id="compass" class="object" src="./img/compass.jpeg" alt="Compass" onclick="handleClick('compass')">
+    <img id="newspaper" class="object" src="./img/newspaper.jpeg" alt="Newspaper" onclick="handleClick('newspaper')">
+    <img id="picture-frame" class="object" src="./img/picture-frame.jpeg" alt="Picture Frame" onclick="handleClick('picture-frame')">
+
+    <!-- Message for correct/incorrect selection -->
+    <div id="message"></div>
+  </div>
+  <button 
+  type="challenge" 
+  onclick="location.href='Challenge3.html'"
+>
+challenge 3
+</button>
+
+
+  <script>
+    function handleClick(object) {
+      const message = document.getElementById('message');
+      if (object === 'globe') {
+        message.textContent = 'Correct! Redirecting to the next challenge...';
+        message.style.color = '#00ff00';
+        message.style.display = 'block';
+        setTimeout(() => {
+          window.location.href = 'next-challenge.html'; // Redirect to next challenge
+        }, 2000);
+      } else {
+        message.textContent = 'Oops! Wrong choice. -3 points. Try again!';
+        message.style.color = '#ff0000';
+        message.style.display = 'block';
+        setTimeout(() => {
+          message.style.display = 'none';
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>

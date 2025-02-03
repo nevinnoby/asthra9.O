@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureScape: The Digital Treasure Hunt</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #1e1e1e;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 80%;
+      height: 30px;
+      background-color: #444;
+      border-radius: 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 3px solid #333;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background-color: #4caf50;
+      border-radius: 15px;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      font-weight: bold;
+      transition: width 0.5s ease-in-out, background-color 1s ease-in-out;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+    }
+
+    .progress-bar.complete {
+      background-color: #00b300;
+      animation: pulse 1s infinite;
+    }
+
+    .room {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      background-color: #333;
+      border: 5px solid #555;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .object {
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .object:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    #light {
+      top: 20px;
+      left: 50px;
+      width: 60px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    #fan {
+      top: 20px;
+      right: 50px;
+      width: 70px;
+      animation: spin 5s infinite linear;
+    }
+
+    #chair {
+      bottom: 20px;
+      left: 100px;
+      width: 80px;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    #table {
+      bottom: 20px;
+      right: 100px;
+      width: 90px;
+      animation: float 3.5s infinite ease-in-out;
+    }
+
+    #book {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      animation: glow 2s infinite alternate ease-in-out;
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+      }
+      100% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div id="progress-bar" class="progress-bar">0%</div>
+  </div>
+
+  <div class="room">
+    <video class="video-background" autoplay loop muted>
+        <source src="./img/room1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Objects in the room -->
+    <img id="light" class="object" src="./img/light.jpg" alt="Light" onclick="handleClick('light')">
+    <img id="fan" class="object" src="./img/fan.jpg" alt="Fan" onclick="handleClick('fan')">
+    <img id="chair" class="object" src="chair.png" alt="Chair" onclick="handleClick('chair')">
+    <img id="table" class="object" src="./img/table.png" alt="Table" onclick="handleClick('table')">
+    <img id="book" class="object" src="./img/book.png" alt="Book" onclick="handleClick('book')">
+
+    <!-- Message for correct/incorrect selection -->
+    <div id="message"></div>
+  </div>
+  <button 
+  type="challenge" 
+  onclick="location.href='Challenge2.html'"
+>
+challenge 2
+</button>
+  <script>
+    function handleClick(object) {
+      const message = document.getElementById('message');
+      const progressBar = document.getElementById('progress-bar');
+      
+      if (object === 'book') {
+        message.textContent = 'Correct! Redirecting to the MCQ Challenge...';
+        message.style.color = '#00ff00';
+        message.style.display = 'block';
+        
+        // Update the progress bar to 100%
+        progressBar.style.width = '100%';
+        progressBar.textContent = '100%';
+        progressBar.classList.add('complete'); // Adds the pulse animation
+
+        setTimeout(() => {
+          window.location.href = 'mcq-challenge.html'; // Redirect to MCQ challenge page
+        }, 2000);
+      } else {
+        message.textContent = 'Oops! Wrong choice. -3 points. Try again!';
+        message.style.color = '#ff0000';
+        message.style.display = 'block';
+        
+        // Update the progress bar to 30% on wrong choice
+        progressBar.style.width = '30%';
+        progressBar.textContent = '30%';
+        progressBar.classList.remove('complete'); // Remove pulse animation
+
+        setTimeout(() => {
+          message.style.display = 'none';
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
